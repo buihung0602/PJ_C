@@ -6,7 +6,7 @@
 
 int main() {
     Student students[MAX];
-    int studentCount = 0, choice, subChoice;
+    int studentCount = 0, choice, subChoice, count=0, order;
     loadStudents(students, &studentCount);
     Teacher teachers[MAX];
     int teacherCount = 0;
@@ -24,7 +24,18 @@ int main() {
                     case 3: searchStudent(students, studentCount); break;
                     case 4: editStudent(students, studentCount); break;
                     case 5: deleteStudent(students, &studentCount); break;
-                    case 6: sortStudents(students, studentCount); break;
+                    case 6:
+						printf("1. A-Z\n");
+						printf("2. Z-A\n");
+						scanf("%d",&order);
+						while(order<1 || order>2) {
+							printf("1. A-Z\n");
+							printf("2. Z-A\n");
+							scanf("%d",&order);
+					}
+						
+						sortStudents(students, studentCount, order);
+							break;
                     case 7: resetStudents(students, &studentCount); break;
                     case 0: break;
                     default: printf("Invalid choice! Please try again.\n");

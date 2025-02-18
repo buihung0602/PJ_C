@@ -205,16 +205,64 @@ void deleteStudent(Student students[], int *count) {
     printf("Student not found!\n");
 }
 //sap xep sinh vien theo ten tu a-z bang sap xep bb sort
-void sortStudents(Student students[], int count) {
-    for (int i = 0; i < count - 1; i++) {
-        for (int j = i + 1; j < count; j++) {
-            if (students[i].id > students[j].id) {
-                Student temp = students[i];
-                students[i] = students[j];
-                students[j] = temp;
-            }
-        }
-    }
+void sortStudents(Student students[], int count, int order) {
+	if(order==1) {
+	    for (int i = 0; i < count - 1; i++) {
+	        for (int j = i + 1; j < count; j++) {
+	            char lastName1 = '\0', lastName2 = '\0';
+	            
+	            for (int k = strlen(students[i].name) - 1; k >= 0; k--) {
+	                if (students[i].name[k] == ' ') {
+	                    lastName1 = students[i].name[k + 1];
+	                    break;
+	                }
+	            }
+	            if (lastName1 == '\0') lastName1 = students[i].name[0];
+	            
+	            for (int k = strlen(students[j].name) - 1; k >= 0; k--) {
+	                if (students[j].name[k] == ' ') {
+	                    lastName2 = students[j].name[k + 1];
+	                    break;
+	                }
+	            }
+	            if (lastName2 == '\0') lastName2 = students[j].name[0];
+	            
+	            if (lastName1 > lastName2) {
+	                Student temp = students[i];
+	                students[i] = students[j];
+	                students[j] = temp;
+	            }
+	        }
+	    }
+	} else {
+		for (int i = 0; i < count - 1; i++) {
+        	for (int j = i + 1; j < count; j++) {
+            	char lastName1 = '\0', lastName2 = '\0';
+            
+            	for (int k = strlen(students[i].name) - 1; k >= 0; k--) {
+                	if (students[i].name[k] == ' ') {
+                    	lastName1 = students[i].name[k + 1];
+                    	break;
+                	}
+            	}
+            	if (lastName1 == '\0') lastName1 = students[i].name[0];
+            
+            	for (int k = strlen(students[j].name) - 1; k >= 0; k--) {
+            		if (students[j].name[k] == ' ') {
+                    	lastName2 = students[j].name[k + 1];
+                    	break;
+                	}
+            	}
+            	if (lastName2 == '\0') lastName2 = students[j].name[0];
+            
+            	if ((order == 1 && lastName1 > lastName2) || (order == 2 && lastName1 < lastName2)) {
+                	Student temp = students[i];
+                	students[i] = students[j];
+                	students[j] = temp;
+            	}
+        	}
+    	}
+	}
     saveStudents(students, count);
     printf("Students sorted successfully!\n");
 }
@@ -241,7 +289,7 @@ void teacherMenu() {
 
 //luu danh sach hoc sinh vao file student.txt 
 void saveTeachers(Teacher teachers[], int count) {
-    FILE *file = fopen(FILE_STUDENT, "wb"); 
+    FILE *file = fopen(FILE_TEACHER, "wb"); 
     if (file == NULL) {
         printf("Loi: Khong the mo file de ghi\n");
         return;
@@ -255,7 +303,7 @@ void saveTeachers(Teacher teachers[], int count) {
 }
 //doc danh sach giao vien trong file student.txt
 void loadTeachers(Teacher teachers[], int *count) {
-    FILE *file = fopen(FILE_STUDENT, "rb");
+    FILE *file = fopen(FILE_TEACHER, "rb");
     if (file == NULL) {
         printf("Loi: Khong the mo file hoac file trong\n");
         return;

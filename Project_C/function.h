@@ -5,7 +5,7 @@ void displayStudents(Student students[], int count);
 void editStudent(Student students[], int count);
 void deleteStudent(Student students[], int *count);
 void searchStudent(Student students[], int count);
-void sortStudents(Student students[], int count);
+void sortStudents(Student students[], int count, int order);
 void saveStudents(Student students[], int count);
 void loadStudents(Student students[], int *count);
 void resetStudents(Student students[], int *count);
